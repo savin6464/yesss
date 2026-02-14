@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine’s Day Hanna ❤️</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        background: linear-gradient(135deg, #ff8fb1, #ffc1d9);
+        color: white;
+        text-align: center;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Content Container */
+    .container {
+        position: relative;
+        z-index: 10;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+    p { margin: 15px 0; font-size: 1.1rem; }
+
+    /* Button Styling */
+    button {
+        padding: 14px 32px;
+        font-size: 1.1em;
+        border: none;
+        border-radius: 30px;
+        background: white;
+        color: #ff4e8a;
+        cursor: pointer;
+        font-weight: bold;
+        transition: transform 0.3s ease, background 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        background: #fff0f5;
+    }
+
+    /* Elements to reveal */
+    .hidden { display: none; }
+    
+    #videoContainer {
+        margin-top: 20px;
+        width: 100%;
+        max-width: 400px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    /* Floating Roses */
+    .rose {
+        position: fixed;
+        bottom: -100px;
+        background-image: url('https://pngimg.com/uploads/rose/rose_PNG659.png');
+        background-size: cover;
+        pointer-events: none;
+        z-index: 1;
+        animation: bloomUp linear forwards;
+    }
+
+    @keyframes bloomUp {
+        0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+        20% { opacity: 1; }
+        100% { transform: translateY(-110vh) rotate(30deg) scale(1.2); opacity: 0; }
+    }
+
+    /* Falling Hearts */
+    .heart {
+        position: fixed;
+        top: -20px;
+        color: #ff4e8a;
+        font-size: 20px;
+        pointer-events: none;
+        z-index: 2;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Petals */
+    .petal {
+        position: fixed;
+        top: -40px;
+        background-image: url('https://pngimg.com/uploads/rose_petals/rose_petals_PNG45.png');
+        background-size: cover;
+        pointer-events: none;
+        opacity: 0.75;
+        z-index: 1;
+        animation: fallPetal linear forwards;
+    }
+
+    @keyframes fallPetal {
+        0% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.8; }
+        100% { transform: translateX(150px) translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="mainBox">
+    <h1>Happy Valentine’s Day, Hanna 🌹</h1>
+    <p>Yes ginawa ko ito 🙄. Sorry na :(</p>
+    
+    <button id="sungitBtn" onclick="reveal()">Click if Sungit 💖</button>
+
+    <div id="revealContent" class="hidden">
+        <p id="msg">
+            You are my favorite person, my safe place,<br>
+            and the most beautiful part of my life.<br>
+            I love you always ❤️
+        </p>
+        
+        <div id="videoContainer">
+            <video width="100%" controls id="valentineVideo">
+                <source src="your-video-link.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</div>
+
+<audio id="music" src="baby-blue.mp3"></audio>
+
+<script>
+function reveal() {
+    // 1. Show message and video
+    document.getElementById("revealContent").classList.remove("hidden");
+    document.getElementById("sungitBtn").classList.add("hidden");
+    
+    // 2. Play music and video
+    const music = document.getElementById("music");
+    const video = document.getElementById("valentineVideo");
+    music.play().catch(e => console.log("Audio play deferred"));
+    video.play().catch(e => console.log("Video play deferred"));
+
+    // 3. Start the "Bloom Everywhere" effect
+    setInterval(createRose, 300); // Fast blooming
+}
+
+/* Floating Roses (Bloom Effect) */
+function createRose() {
+    const rose = document.createElement("div");
+    rose.classList.add("rose");
+
+    const size = Math.random() * 50 + 50;
+    rose.style.width = size + "px";
+    rose.style.height = size + "px";
+    rose.style.left = Math.random() * 100 + "vw";
+    rose.style.animationDuration = (Math.random() * 5 + 5) + "s";
+
+    document.body.appendChild(rose);
+    setTimeout(() => rose.remove(), 10000);
+}
+
+/* Falling Hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+
+/* Falling Petals */
+function createPetal() {
+    const petal = document.createElement("div");
+    petal.classList.add("petal");
+
+    const size = Math.random() * 15 + 15;
+    petal.style.width = size + "px";
+    petal.style.height = size + "px";
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDuration = (Math.random() * 4 + 6) + "s";
+
+    document.body.appendChild(petal);
+    setTimeout(() => petal.remove(), 10000);
+}
+
+// Background effects start immediately
+setInterval(createHeart, 400);
+setInterval(createPetal, 700);
+</script>
+
+</body>
+</html>
